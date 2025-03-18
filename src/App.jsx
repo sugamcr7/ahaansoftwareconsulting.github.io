@@ -18,6 +18,7 @@ const AppContent = () => {
 
   return (
     <>
+      {/* Check if the current route should hide header/footer */}
       {!hideHeaderFooterRoutes.includes(location.pathname) && (
         <>
           <TopHeader />
@@ -25,7 +26,6 @@ const AppContent = () => {
         </>
       )}
 
-      {/* Wrap lazy-loaded components inside Suspense */}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -34,9 +34,11 @@ const AppContent = () => {
           <Route path="/service" element={<Service />} />
           <Route path="/industry" element={<Industry />} />
           <Route path="/web-design-development-company" element={<Landing />} />
+          <Route path="*" element={<div>404 - Page Not Found</div>} /> {/* Handle undefined routes */}
         </Routes>
       </Suspense>
 
+      {/* Conditionally render the footer */}
       {!hideHeaderFooterRoutes.includes(location.pathname) && <Footer />}
     </>
   );
